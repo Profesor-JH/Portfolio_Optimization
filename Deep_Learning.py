@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 # Define your list of tickers and date range
@@ -76,4 +77,34 @@ plt.ylabel('Allocation')
 plt.title('Portfolio Allocation')
 plt.xticks(rotation=45)
 plt.tight_layout()
+plt.show()
+
+# Assuming 'allocation' contains the weights allocated by your portfolio optimization model
+# 'daily_returns' contains the daily returns of each asset
+
+portfolio_daily_return = np.sum(allocation * daily_returns, axis=1)
+cumulative_return_portfolio = np.cumprod(1 + portfolio_daily_return) - 1
+
+# Calculate equally weighted portfolio return
+equally_weighted_allocation = np.ones(len(tickers)) / len(tickers)
+equally_weighted_portfolio_return = np.sum(equally_weighted_allocation * daily_returns, axis=1)
+cumulative_return_equally_weighted = np.cumprod(1 + equally_weighted_portfolio_return) - 1
+
+# Calculate random portfolio return
+np.random.seed(42)  # For reproducibility
+random_allocation = np.random.rand(len(tickers))
+random_allocation /= np.sum(random_allocation)  # Normalize weights to sum up to 1
+random_portfolio_return = np.sum(random_allocation * daily_returns, axis=1)
+cumulative_return_random = np.cumprod(1 + random_portfolio_return) - 1
+
+# Plot cumulative returns of all portfolios
+plt.figure(figsize=(10, 6))
+plt.plot(cumulative_return_portfolio.index, cumulative_return_portfolio, label='Optimized Portfolio', color='green')
+plt.plot(cumulative_return_equally_weighted.index, cumulative_return_equally_weighted, label='Equally Weighted Portfolio', color='blue')
+plt.plot(cumulative_return_random.index, cumulative_return_random, label='Random Portfolio', color='red')
+plt.xlabel('Date')
+plt.ylabel('Cumulative Return')
+plt.title('Portfolio Cumulative Return Comparison')
+plt.legend()
+plt.grid(True)
 plt.show()

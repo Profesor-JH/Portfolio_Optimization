@@ -34,10 +34,18 @@ class Portfolio(nn.Module):
         return self.network(x)
 
 # Define the loss function
-def loss_function(predictions, targets, lambda_reg=0.5):
+def loss_function(predictions, targets, lambda_reg=0.5, diversification_reg=0.1):
+    """
+    Loss function: Mean return - lambda_reg * portfolio variance + diversification_reg * diversification penalty
+    """
+    
     portfolio_return = torch.mean(torch.sum(predictions * targets, dim=1))
     portfolio_variance = torch.var(torch.sum(predictions * targets, dim=1))
-    total_loss = -portfolio_return + lambda_reg * portfolio_variance
+    
+    # New term to encourage diversification
+    diversification_penalty = diversification_reg * torch.var(predictions)
+    total_loss = -portfolio_return + lambda_reg * portfolio_variance + diversification_penalty
+    
     return total_loss
 
 # Train the model

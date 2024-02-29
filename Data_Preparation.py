@@ -2,7 +2,6 @@ import torch
 from torch.utils.data import DataLoader, TensorDataset
 import mysql.connector
 import pandas as pd
-import yfinance as yf
 import yaml
 
 # Read the configuration file
@@ -59,16 +58,4 @@ def prepare_data(tickers, start_date, end_date):
 
     return data_loader, daily_returns
 
-
-# Define your list of tickers
-tickers = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA']
-
-# Define start and end dates
-start_date = '2023-02-27'
-end_date = '2024-02-27'
-
-# Call the prepare_data function
-data_loader, daily_returns = prepare_data(tickers, start_date, end_date)
-
-daily_returns.to_csv("Daily_return.csv", index=False)
 

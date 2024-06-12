@@ -23,7 +23,7 @@ This project is a web application designed to optimize a stock portfolio using d
 
 HTML/CSS: For creating the user interface templates.
 **Backend:**
-
+```
 Flask: For handling web server functionality and routing.
 Python: For data processing and implementing business logic.
 Data Handling:
@@ -52,10 +52,11 @@ User Interface:
 
 Interactive Web Pages: Designed HTML templates for displaying the main page and results dynamically.
 User Inputs: Enabled users to input their preferences and constraints for portfolio optimization.
-
+```
 ## Responsibilities:
-**Backend Development:**
 
+**Backend Development:**
+```
 Developed Flask routes and integrated the web application with backend logic.
 Designed and managed the database schema for storing financial data and user preferences.
 Data Processing and Machine Learning:
@@ -66,20 +67,24 @@ User Interface and Visualization:
 
 Created and styled HTML templates for a user-friendly interface.
 Implemented data visualization using Matplotlib to provide insights into portfolio performance.
+```
 **Automation and Deployment:**
 
 Automated the portfolio rebalancing process to reflect the latest data.
 Deployed the Flask application to a web server for public access.
 
 ## Impact:
+
 **Enhanced Decision Making:**
 
 Provided users with an advanced tool to optimize their investment portfolios using cutting-edge machine learning techniques.
 Improved user experience through dynamic visualizations and intuitive web interface.
+
 **Operational Efficiency:**
 
 Automated data preparation and portfolio rebalancing, significantly reducing manual effort.
 Enabled real-time portfolio analysis and optimization based on the latest market data.
+
 **Scalability:**
 
 Designed the application to be easily extensible, allowing for the addition of new features and financial metrics in the future.

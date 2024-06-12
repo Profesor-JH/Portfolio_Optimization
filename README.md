@@ -78,6 +78,8 @@ This project is a web application designed to optimize a stock portfolio using d
 
 ## Project Structure
 
+```
+
 Portfolio_Optimization/
 ├── app.py                          # Flask application entry point
 ├── config.yaml                     # Database configuration file
@@ -94,7 +96,7 @@ Portfolio_Optimization/
 ├── requirements.txt                # Project dependencies
 └── __pycache__/                    # Compiled Python files
 
-
+```
 
 ## Contributing
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Portfolio Optimization App
 
 This project is a web application designed to optimize a stock portfolio using deep learning techniques. It provides users with the ability to input stock tickers, specify a date range, and set various parameters to optimize their portfolio allocation. The app also supports dynamic rebalancing of the portfolio.
@@ -24,7 +23,7 @@ This project is a web application designed to optimize a stock portfolio using d
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/portfolio_app.git
+    git clone https://github.com/Profesor-JH/Portfolio_Optimization.git
     cd portfolio_app
     ```
 
@@ -79,7 +78,7 @@ This project is a web application designed to optimize a stock portfolio using d
 
 ## Project Structure
 
-portfolio_app/
+Portfolio Optimization/
 │
 ├── app.py # Flask application entry point
 ├── config.yaml # Database configuration file
@@ -107,4 +106,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 =======
 Check demo here : https://youtu.be/7zYVZbyyTAw?si=Ja-vzYfUh5oLgLZ8
->>>>>>> 77513112ba92e1cb73b761ad0499b6fe06e783e6
+

@@ -78,22 +78,22 @@ This project is a web application designed to optimize a stock portfolio using d
 
 ## Project Structure
 
-Portfolio Optimization/
-│
-├── app.py # Flask application entry point
-├── config.yaml # Database configuration file
-├── Data_Preparation.py # Data preparation script
-├── Deep_Learning.py # Deep learning model and training script
-├── Rebalancing.py # Portfolio rebalancing script
+Portfolio_Optimization/
+├── app.py                          # Flask application entry point
+├── config.yaml                     # Database configuration file
+├── Data_Preparation.py             # Data preparation script
+├── Deep_Learning.py                # Deep learning model and training script
+├── Rebalancing.py                  # Portfolio rebalancing script
 ├── static/
-│ ├── portfolio_cumulative_returns.png # Cumulative returns plot
-│ └── current_allocation.png # Current allocation radar chart
+│   ├── portfolio_cumulative_returns.png  # Cumulative returns plot
+│   └── current_allocation.png      # Current allocation radar chart
 ├── templates/
-│ ├── index.html # Main page HTML
-│ └── result.html # Results page HTML
-├── README.md # Project README file
-├── requirements.txt # Project dependencies
-└── pycache/ # Compiled Python files
+│   ├── index.html                  # Main page HTML
+│   └── result.html                 # Results page HTML
+├── README.md                       # Project README file
+├── requirements.txt                # Project dependencies
+└── __pycache__/                    # Compiled Python files
+
 
 
 ## Contributing

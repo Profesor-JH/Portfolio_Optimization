@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Portfolio Optimization App
 
 This project is a web application designed to optimize a stock portfolio using deep learning techniques. It provides users with the ability to input stock tickers, specify a date range, and set various parameters to optimize their portfolio allocation. The app also supports dynamic rebalancing of the portfolio.
@@ -104,3 +105,6 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+=======
+Check demo here : https://youtu.be/7zYVZbyyTAw?si=Ja-vzYfUh5oLgLZ8
+>>>>>>> 77513112ba92e1cb73b761ad0499b6fe06e783e6

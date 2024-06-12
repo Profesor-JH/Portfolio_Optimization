@@ -8,9 +8,9 @@ This project is a web application designed to optimize a stock portfolio using d
 # Table of Contents
 
 - [Technologies](#Technologies Used:)
+- [Features](#Key Features:)
 - [Responsibilities](#Responsibilities)
 - [Impact](#Impact)
-- [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
@@ -23,51 +23,54 @@ This project is a web application designed to optimize a stock portfolio using d
 
 HTML/CSS: For creating the user interface templates.
 **Backend:**
-```
-Flask: For handling web server functionality and routing.
-Python: For data processing and implementing business logic.
+
+* Flask: For handling web server functionality and routing.
+
+* Python: For data processing and implementing business logic.
 Data Handling:
 
-Pandas: For data manipulation and preparation.
+* Pandas: For data manipulation and preparation.
 SQLAlchemy: For MySQL RDS (AWS) database interactions.
 Machine Learning:
 
-TensorFlow/Keras: For developing and training deep learning models.
+* TensorFlow/Keras: For developing and training deep learning models.
 Visualization:
 
-Matplotlib: For generating plots and charts.
+* Matplotlib: For generating plots and charts.
 Configuration:
 
-YAML: For managing database configuration securely.
-Key Features:
-Portfolio Optimization:
+* YAML: For managing database configuration securely.
 
-Deep Learning Integration: Implemented a deep learning model for predicting stock prices and optimizing portfolio allocation.
+## Key Features:
+
+**Portfolio Optimization:**
+
+* Deep Learning Integration: Implemented a deep learning model for predicting stock prices and optimizing portfolio allocation.
 Rebalancing Script: Automated portfolio rebalancing based on the latest market data and user-defined criteria.
 Dynamic Data Handling:
 
-Data Preparation: Scripted data preprocessing steps to clean and normalize financial data.
+* Data Preparation: Scripted data preprocessing steps to clean and normalize financial data.
 Visualization: Created plots for cumulative returns and radar charts for current allocation to help users visualize their portfolio performance.
 User Interface:
 
-Interactive Web Pages: Designed HTML templates for displaying the main page and results dynamically.
+* Interactive Web Pages: Designed HTML templates for displaying the main page and results dynamically.
 User Inputs: Enabled users to input their preferences and constraints for portfolio optimization.
-```
+
 ## Responsibilities:
 
 **Backend Development:**
-```
-Developed Flask routes and integrated the web application with backend logic.
+
+* Developed Flask routes and integrated the web application with backend logic.
 Designed and managed the database schema for storing financial data and user preferences.
 Data Processing and Machine Learning:
 
-Wrote scripts for data preparation, ensuring clean and normalized input for models.
+* Wrote scripts for data preparation, ensuring clean and normalized input for models.
 Built and trained deep learning models for stock price prediction using TensorFlow/Keras.
 User Interface and Visualization:
 
-Created and styled HTML templates for a user-friendly interface.
+* Created and styled HTML templates for a user-friendly interface.
 Implemented data visualization using Matplotlib to provide insights into portfolio performance.
-```
+
 **Automation and Deployment:**
 
 Automated the portfolio rebalancing process to reflect the latest data.

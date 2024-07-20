@@ -1,0 +1,218 @@
+/* Reset and general styles */
+body {
+    background: url('/static/images/back.jpg') center center fixed;
+    background-size: cover;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    opacity: 0.9;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Form styles */
+.form-container {
+    padding: 20px;
+    height: 270px;
+    margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.form-container h1 {
+    color: gold; /* Gold color */
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Text shadow for contrast */
+}
+
+.form-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    width: calc(33.33% - 10px);
+    margin-bottom: 10px;
+    
+}
+
+.form-horizontal label {
+    display: block;
+    margin-bottom: 5px;
+    color: #bbb;
+}
+
+.form-horizontal input[type="text"],
+.form-horizontal input[type="date"],
+.form-horizontal input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+    margin-top: 5px;
+}
+
+.form-horizontal button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: gold;
+    color: black; /* Updated to ensure button text color is black */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-horizontal button:hover {
+    background-color: #ffdd57;
+}
+
+/* Result styles */
+.result-container {
+    padding: 20px;
+    margin: 20px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.result-container h2 {
+    color: gold; /* Gold color */
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Text shadow for contrast */
+}
+
+.plot-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.plot {
+    width: 30%;
+    min-width: 300px;
+    height: 400px;
+    margin: 20px 0;
+    background-color: #444;
+    border-radius: 10px;
+}
+
+.metrics-container, .returns-container {
+    margin-top: 40px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.styled-table th {
+    background-color: rgba(46, 236, 207, 0.3);
+    color: black;
+}
+
+.styled-table tbody td {
+    background-color: rgba(68, 68, 68, 0.5);
+    color: white;
+}
+
+.styled-table tbody tr:nth-child(even) td {
+    background-color: rgba(68, 68, 68, 0.7);
+}
+
+/* Shining text effect */
+@keyframes shine {
+    0% {
+        background-position: -500%;
+    }
+    100% {
+        background-position: 500%;
+    }
+}
+
+.shining-text {
+    background: linear-gradient(to right, #fff, #f0f0f0, #fff);
+    background-size: 200%;
+    color: black;
+    animation: shine 2s infinite linear;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+/* Add to your existing CSS */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    /* Gold track color */
+    background: linear-gradient(to right, gold 0%, gold var(--value), #555 var(--value), #555 100%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+}
+
+/* Gold color for slider track when active */
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-track {
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
+}
+
+input[type="range"]::-ms-track {
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
+}

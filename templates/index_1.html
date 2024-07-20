@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio Optimization & Risk Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            background: url('/static/images/back.jpg') center center fixed;
+            background-size: cover;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            opacity: 0.9;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+        .form-container, .result-container {
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .form-container h1, .result-container h2 {
+            color: gold;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        .form-horizontal {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .form-group {
+            width: calc(33.33% - 10px);
+            margin-bottom: 20px;
+        }
+        .form-horizontal label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+        .form-horizontal input[type="text"],
+        .form-horizontal input[type="date"],
+        .form-horizontal input[type="number"],
+        .form-horizontal input[type="range"] {
+            width: 95%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #555;
+            color: white;
+        }
+        .form-horizontal button {
+            width: 20%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(237, 235, 222);
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-horizontal button:hover {
+            background-color: black;
+            color: gold;
+        }
+        .metrics-container {
+            margin-top: 40px;
+        }
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .styled-table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        th {
+            background-color: #222;
+        }
+        td {
+            background-color: #333;
+        }
+        tbody tr:nth-child(even) td {
+            background-color: #444;
+        }
+        .plot-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .plot {
+            width: 30%;
+            min-width: 300px;
+            height: 400px;
+            margin: 20px 0;
+            position: relative;
+        }
+        .plot-title {
+            text-align: left;
+            margin: 10px 0;
+            color: gold;
+            font-weight: bold;
+        }
+        .annotations {
+            font-size: 12px;
+            color: white;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Portfolio & Risk Manager</h1>
+            <form class="form-horizontal" action="/optimize_portfolio" method="post">
+                <div class="form-group">
+                    <label for="tickers">Tickers (comma separated):</label>
+                    <input type="text" id="tickers" name="tickers" required>
+                </div>
+                <div class="form-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="rebalance_interval">Rebalance Interval: <span id="rebalance_value">1</span> months</label>
+                    <input type="range" id="rebalance_interval" name="rebalance_interval" min="1" max="12" value="1" step="1" oninput="document.getElementById('rebalance_value').innerText = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="lambda_reg">Lambda Regularization: <span id="lambda_value">0.1</span></label>
+                    <input type="range" step="0.01" id="lambda_reg" name="lambda_reg" min="0" max="1" value="0.1" oninput="document.getElementById('lambda_value').innerText = this.value">
+                </div>
+                <div class="form-group">
+                    <label for="diversification_reg">Diversification Regularization: <span id="diversification_value">0.1</span></label>
+                    <input type="range" step="0.01" id="diversification_reg" name="diversification_reg" min="0" max="1" value="0.1" oninput="document.getElementById('diversification_value').innerText = this.value">
+                </div>
+                <button type="submit">Optimize</button>
+            </form>
+        </div>
+
+        {% if allocation is defined and allocation|length > 0 %}
+        <div class="result-container">
+            <div class="plot-container">
+                <div class="plot">
+                    <div class="plot-title">Deep Learning Optimized</div>
+                    <div id="optimized_allocation"></div>
+                </div>
+                <div class="plot">
+                    <div class="plot-title">Equally Weighted</div>
+                    <div id="equally_weighted_allocation"></div>
+                </div>
+                <div class="plot">
+                    <div class="plot-title">Mean-Variance Optimized</div>
+                    <div id="mean_variance_optimized_allocation"></div>
+                </div>
+            </div>
+
+            <script>
+                var colorsTransparent = ['rgba(255,215,0,0.6)', 'rgba(255,69,0,0.6)', 'rgba(50,205,50,0.6)', 'rgba(30,144,255,0.6)', 'rgba(128,0,128,0.6)', 'rgba(255,20,147,0.6)', 'rgba(0,191,255,0.6)', 'rgba(188,143,143,0.6)', 'rgba(244,164,96,0.6)', 'rgba(154,205,50,0.6)'];
+
+                var dataOptimized = [{
+                    values: {{ allocation | tojson }},
+                    labels: {{ tickers | tojson }},
+                    type: 'pie',
+                    hole: .4,
+                    marker: {
+                        colors: colorsTransparent
+                    },
+                    textinfo: 'label+percent',
+                    textposition: 'inside',
+                    hoverinfo: 'label+percent+name',
+                    showlegend: false
+                }];
+
+                var layoutOptimized = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    height: 400,
+                    width: 400,
+                    annotations: [{
+                        x: -.8,
+                        y: 1.4,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: `
+                            Cumulative return: {{ (cumulative_return_portfolio * 100) | round(1) }}%<br>
+                            Value at Risk: {{ (var.optimized * 100) | round(1) }}%<br>
+                            Conditional Value at Risk: {{ (cvar.optimized * 100) | round(1) }}%<br>
+                            Sharpe Ratio: {{ sharpe_ratio.optimized | round(2) }}<br>
+                            Sortino Ratio: {{ sortino_ratio.optimized | round(2) }}<br>
+                            Current Allocation:
+                        `,
+                        showarrow: false,
+                        font: {
+                            size: 12,
+                            color: 'white'
+                        },
+                        align: 'left',
+                        xanchor: 'left',
+                        yanchor: 'top'
+                    }]
+                };
+
+                Plotly.newPlot('optimized_allocation', dataOptimized, layoutOptimized);
+
+                var dataEqually = [{ 
+                    values: {{ equally_weighted_allocation | tojson }},
+                    labels: {{ tickers | tojson }},
+                    type: 'pie',
+                    hole: .4,
+                    marker: {
+                        colors: colorsTransparent
+                    },
+                    textinfo: 'label+percent',
+                    textposition: 'inside',
+                    hoverinfo: 'label+percent+name',
+                    showlegend: false
+                }];
+
+                var layoutEqually = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    height: 400,
+                    width: 400,
+                    annotations: [{
+                        x: -.8,
+                        y: 1.4,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: `
+                            Cumulative return: {{ (cumulative_return_equally_weighted * 100) | round(1) }}%<br>
+                            Value at Risk: {{ (var.equally_weighted * 100) | round(1) }}%<br>
+                            Conditional Value at Risk: {{ (cvar.equally_weighted * 100) | round(1) }}%<br>
+                            Sharpe Ratio: {{ sharpe_ratio.equally_weighted | round(2) }}<br>
+                            Sortino Ratio: {{ sortino_ratio.equally_weighted | round(2) }}<br>
+                            Current Allocation:
+                        `,
+                        showarrow: false,
+                        font: {
+                            size: 12,
+                            color: 'white'
+                        },
+                        align: 'left',
+                        xanchor: 'left',
+                        yanchor: 'top'
+                    }]
+                };
+
+                Plotly.newPlot('equally_weighted_allocation', dataEqually, layoutEqually);
+
+                var dataMeanVariance = [{ 
+                    values: {{ mean_variance_optimized_allocation | tojson }},
+                    labels: {{ tickers | tojson }},
+                    type: 'pie',
+                    hole: .4,
+                    marker: {
+                        colors: colorsTransparent
+                    },
+                    textinfo: 'label+percent',
+                    textposition: 'inside',
+                    hoverinfo: 'label+percent+name',
+                    showlegend: false
+                }];
+
+                var layoutMeanVariance = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    height: 400,
+                    width: 400,
+                    annotations: [{
+                        x: -.8,
+                        y: 1.4,
+                        xref: 'paper',
+                        yref: 'paper',
+                        text: `
+                            Cumulative return: {{ (cumulative_return_mean_variance_optimized * 100) | round(1) }}%<br>
+                            Value at Risk: {{ (var.mean_variance_optimized * 100) | round(1) }}%<br>
+                            Conditional Value at Risk: {{ (cvar.mean_variance_optimized * 100) | round(1) }}%<br>
+                            Sharpe Ratio: {{ sharpe_ratio.mean_variance_optimized | round(2) }}<br>
+                            Sortino Ratio: {{ sortino_ratio.mean_variance_optimized | round(2) }}<br>
+                            Current Allocation:
+                        `,
+                        showarrow: false,
+                        font: {
+                            size: 12,
+                            color: 'white'
+                        },
+                        align: 'left',
+                        xanchor: 'left',
+                        yanchor: 'top'
+                    }]
+                };
+
+                Plotly.newPlot('mean_variance_optimized_allocation', dataMeanVariance, layoutMeanVariance);
+            </script>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
